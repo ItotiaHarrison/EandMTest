@@ -29,7 +29,7 @@ export default function AddEmployeePage() {
     setError('');
   
     try {
-      // Validate all required fields
+      
       if (!formData.fullName || !formData.email || !formData.phone || !formData.position || !formData.departmentId) {
         throw new Error('All fields are required');
       }
@@ -40,11 +40,6 @@ export default function AddEmployeePage() {
         return;
       }
   
-      // Validate departmentId is a valid number
-      const departmentId = parseInt(formData.departmentId);
-      if (isNaN(departmentId)) {
-        throw new Error('Department ID must be a valid number');
-      }
   
       const response = await fetch('/api/employees', {
         method: 'POST',
@@ -52,10 +47,7 @@ export default function AddEmployeePage() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          ...formData,
-          departmentId: departmentId // Use the parsed number
-        }),
+        body: JSON.stringify(formData),
       });
   
       if (!response.ok) {
@@ -205,7 +197,7 @@ export default function AddEmployeePage() {
             </label>
             <input
               id="departmentId"
-              type="number"
+              type="text"
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500"
               placeholder="Enter department ID"

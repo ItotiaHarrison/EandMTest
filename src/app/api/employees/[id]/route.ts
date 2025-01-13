@@ -7,7 +7,6 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    // Verify admin authentication
     const admin = await verifyAuth(req);
     if (!admin) {
       return NextResponse.json(

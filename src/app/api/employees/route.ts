@@ -3,18 +3,18 @@ import { prisma } from '@/lib/prisma';
 import { verifyToken } from '@/lib/auth';
 import { z } from 'zod';
 
-// Validation schema for employee data
+// Validating employee data
 const EmployeeSchema = z.object({
   fullName: z.string().min(2, 'Full name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
   phone: z.string().optional(),
   position: z.string().min(2, 'Position must be at least 2 characters'),
-  department: z.string().min(2, 'Department must be at least 2 characters'),
+  departmentId: z.string().min(2, 'Department must be at least 2 characters'),
 });
 
 export async function POST(req: Request) {
   try {
-    // Verify authentication
+    // Verifying authentication
     const authHeader = req.headers.get('authorization');
     if (!authHeader) {
       return NextResponse.json(
@@ -33,11 +33,10 @@ export async function POST(req: Request) {
       );
     }
 
-    // Get and validate request body
     const body = await req.json();
     const validatedData = EmployeeSchema.parse(body);
 
-    // Check if email already exists
+    // Checking if email already exists
     const existingEmployee = await prisma.employee.findUnique({
       where: { email: validatedData.email },
     });
@@ -49,7 +48,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Create new employee
+    // Creating new employee
     const employee = await prisma.employee.create({
       data: {
         ...validatedData,
@@ -80,10 +79,10 @@ export async function POST(req: Request) {
   }
 }
 
-// GET endpoint to fetch all employees
+// endpoint to fetch all employees
 export async function GET(req: Request) {
   try {
-    // Verify authentication
+    
     const authHeader = req.headers.get('authorization');
     if (!authHeader) {
       return NextResponse.json(
@@ -102,7 +101,7 @@ export async function GET(req: Request) {
       );
     }
 
-    // Fetch all employees
+    // Fetching all employees
     const employees = await prisma.employee.findMany({
       orderBy: {
         createdAt: 'desc',

@@ -20,7 +20,7 @@ export default function SignupPage() {
     setIsLoading(true);
     setError('');
 
-    // Validate passwords match
+    
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       setIsLoading(false);

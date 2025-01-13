@@ -14,10 +14,9 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    // Validate input
     const validatedData = SignupSchema.parse(body);
 
-    // Check if email already exists
+    // Checking if email already exists
     const existingUser = await prisma.admin.findUnique({
       where: { email: validatedData.email },
     });
@@ -32,7 +31,7 @@ export async function POST(req: Request) {
     // Hash password
     const hashedPassword = await hashPassword(validatedData.password);
 
-    // Create new admin
+  
     const newAdmin = await prisma.admin.create({
       data: {
         name: validatedData.name,

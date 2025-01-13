@@ -1,4 +1,3 @@
-// lib/auth.ts
 import { SignJWT, jwtVerify } from 'jose';
 import bcrypt from 'bcryptjs';
 
