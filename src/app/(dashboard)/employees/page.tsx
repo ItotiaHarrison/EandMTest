@@ -174,7 +174,7 @@ export default function EmployeeListPage() {
   }
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8 w-full p-6 bg-white rounded-lg shadow-md">
+    <div className="py-8 px-4 sm:px-6 lg:px-8 h-screen w-full p-6 bg-white rounded-lg shadow-md">
       
       <div className="sm:flex sm:items-center mb-6">
         <div className="sm:flex-auto">
@@ -258,7 +258,7 @@ export default function EmployeeListPage() {
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                         <div className="flex justify-end gap-2">
                           <button
-                            onClick={() => router.push(`/employees/${employee.id}`)}
+                            onClick={() => router.push(`/employees/edit/${employee.id}`)}
                             className="text-purple-600 hover:text-purple-900"
                           >
                             <Pencil className="h-5 w-5" />
